@@ -1,1 +1,1 @@
-# Calling the indeed api and saving the results
+# Parses the results from the Indeed API
