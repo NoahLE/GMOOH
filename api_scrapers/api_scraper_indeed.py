@@ -8,11 +8,8 @@ class IndeedAPI:
         self.url_jobs = "http://api.indeed.com/ads/apigetjobs?"
 
         # Query
-        # all of these words - java+manager
-        # at least one of these - %28python+or+javascript%29
-        # none of these words - -sr+-senior
         self.search_all = ""
-        self.search_least = ""
+        self.search_at_least_one = ""
         self.search_none = ""
         self.query = self.return_query_string()
 
@@ -72,11 +69,43 @@ class IndeedAPI:
         # examples: Austin%2C+TX / San+Francisco%2C+CA
         return self.city + "%2C+" + self.state
 
+    def convert_for_url(self, url_terms="", url_type=""):
+        # all of these words - java+manager
+        # at least one of these - %28python+or+javascript%29
+        # none of these words - -sr+-senior
+
+        if url_type == "all" or url_type == "one":
+            url_terms = url_terms.replace(" ", "+").lower()
+            if url_type == "one":
+                url_terms = "%28" + url_terms + "%29"
+        elif url_type == "none":
+            url_terms = "-" + url_terms.replace(" ", "+-").lower()
+        else:
+            pass
+        return url_terms
+
     def return_query_string(self):
-        return self.search_all + self.search_least + self.search_none
+        # %28javascript+or+python%29+-senior+-sr
+
+        search_url = ""
+        if self.search_all:
+            search_url += self.convert_for_url(url_terms=self.search_all,
+                                               url_type="all")
+        if self.search_at_least_one:
+            if self.search_all:
+                search_url += "+"
+            search_url += self.convert_for_url(url_terms=self.search_at_least_one,
+                                               url_type="one")
+        if self.search_none:
+            if self.search_all or self.search_at_least_one:
+                search_url += "+"
+            search_url += self.convert_for_url(url_terms=self.search_none,
+                                               url_type="none")
+
+        return search_url
 
     # Returns a search url for all job listings in a certain area
-    def api_search_job(self):
+    def build_url_job_search(self):
         built_url = self.url_search + \
                     "publisher=" + self.publisher + "&" + \
                     "q=" + self.query + "&" + \
@@ -97,9 +126,9 @@ class IndeedAPI:
                     "v=" + self.version
         return built_url
 
-    def api_jobs_list(self, jobkeys=""):
-        built_url = self.url_jobs + \
-                    "publisher=" + self.publisher + \
-                    "jobkeys=" + jobkeys + \
+    def build_url_job_list(self, job_keys=""):
+        built_url = self.url_jobs + "&" + \
+                    "publisher=" + self.publisher + "&" + \
+                    "jobkeys=" + job_keys + "&" + \
                     "v=" + self.version
         return built_url
