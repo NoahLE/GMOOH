@@ -41,12 +41,14 @@ class IndeedAPI:
 
         # Number of days back to search
         # any, 1, 3, 7, 15
-        self.fromage = "1"
+        self.fromage = "7"
 
-        # Filter duplicates // off - 0, on - 1
+        # Filter duplicates
+        # Off - 0, on - 1
         self.toggle_filter = "1"
 
-        # Show lat long coodinates // off - 0, on - 1
+        # Show lat long coodinates
+        # Off - 0, on - 1
         self.latlong = "0"
 
         # Search within a country
@@ -66,10 +68,13 @@ class IndeedAPI:
         self.version = "2"
 
     def return_location(self):
+        # Returns a url-friendly version of the location
         # examples: Austin%2C+TX / San+Francisco%2C+CA
+
         return self.city + "%2C+" + self.state
 
     def convert_for_url(self, url_terms="", url_type=""):
+        # Returns the user's search terms formatted for API call
         # all of these words - java+manager
         # at least one of these - %28python+or+javascript%29
         # none of these words - -sr+-senior
@@ -85,6 +90,7 @@ class IndeedAPI:
         return url_terms
 
     def return_query_string(self):
+        # Converts search terms for API use
         # %28javascript+or+python%29+-senior+-sr
 
         search_url = ""
@@ -104,8 +110,8 @@ class IndeedAPI:
 
         return search_url
 
-    # Returns a search url for all job listings in a certain area
     def build_url_job_search(self):
+        # Returns a search url for all job listings in a certain area
         built_url = self.url_search + \
                     "publisher=" + self.publisher + "&" + \
                     "q=" + self.query + "&" + \
