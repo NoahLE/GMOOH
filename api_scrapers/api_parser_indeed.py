@@ -1,1 +1,0 @@
-# Parses the results from the Indeed API

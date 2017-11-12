@@ -21,8 +21,12 @@ class IndeedAPI:
         # Sort by relevance or date
         self.sort = "date"
 
+        # API format output
+        # json or xml
+        self.format = "json"
+
         # Radius from search location
-        self.radius = "10"
+        self.radius = "15"
 
         # Site type
         # "jobsite", "employer", blank for both
@@ -37,11 +41,11 @@ class IndeedAPI:
 
         # Max number of results
         # 10, 20, 30, 40, 50
-        self.results_limit = ""
+        self.results_limit = "50"
 
         # Number of days back to search
         # any, 1, 3, 7, 15
-        self.fromage = "7"
+        self.post_age = "7"
 
         # Filter duplicates
         # Off - 0, on - 1
@@ -122,7 +126,7 @@ class IndeedAPI:
                     "jt=" + self.job_type + "&" + \
                     "start=" + self.results_start + "&" + \
                     "limit=" + self.results_limit + "&" + \
-                    "fromage=" + self.fromage + "&" + \
+                    "post_age=" + self.post_age + "&" + \
                     "filter=" + self.toggle_filter + "&" + \
                     "latlong=" + self.latlong + "&" + \
                     "co=" + self.country + "&" + \
