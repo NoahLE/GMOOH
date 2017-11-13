@@ -15,10 +15,10 @@ def index(request):
     job.search_must_contain = "django"
     job.search_at_least_one = ""
     job.search_cant_contain = ""
-    job.full_query = job.convert_search_terms_for_url()
+    job.full_query = job.return_query_string()
 
-    job.city = ""
-    job.state = "ca"
+    job.city = "Austin"
+    job.state = "TX"
     job.location = job.return_location()
 
     final_url = job.build_url_job_search()

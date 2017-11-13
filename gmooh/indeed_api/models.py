@@ -76,6 +76,7 @@ class JobAPI(models.Model):
         return self.city + "%2C+" + self.state
 
     def convert_search_terms_for_url(self, url_terms="", url_type=""):
+        # Helper function for return_query_string()
         # Returns the user's search terms formatted for API call
         # all of these words - java+manager
         # at least one of these - %28python+or+javascript%29
@@ -116,17 +117,17 @@ class JobAPI(models.Model):
         # Returns a search url for all job listings in a certain area
         built_url = "http://api.indeed.com/ads/apisearch?" + \
                     "publisher=" + self.api_key + "&" + \
-                    "q=" + self.return_query_string() + "&" + \
-                    "l=" + self.return_location() + "&" + \
+                    "q=" + self.full_query + "&" + \
+                    "l=" + self.location + "&" + \
                     "sort=" + self.sort + "&" + \
                     "radius=" + self.radius + "&" + \
                     "st=" + self.site_type + "&" + \
                     "jt=" + self.job_type + "&" + \
                     "start=" + self.results_start + "&" + \
                     "limit=" + self.results_limit + "&" + \
-                    "post_age=" + self.post_age + "&" + \
+                    "fromage=" + self.post_age + "&" + \
                     "filter=" + self.toggle_filter + "&" + \
-                    "return_latlong=" + self.return_latlong + "&" + \
+                    "latlong=" + self.return_latlong + "&" + \
                     "co=" + self.country + "&" + \
                     "chnl=" + self.channel + "&" + \
                     "userip=" + self.userip + "&" + \
