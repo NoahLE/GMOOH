@@ -56,6 +56,7 @@ LOCAL_APPS = [
     # custom users app
     'gmooh.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'indeed_api'
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

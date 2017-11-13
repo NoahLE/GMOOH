@@ -3,71 +3,71 @@ from django.db import models
 
 class JobAPI(models.Model):
     # API Key
-    api_key = models.CharField(default="")
+    api_key = models.CharField(default="", max_length=50)
 
     # Query
-    search_must_contain = models.CharField(default="")
-    search_at_least_one = models.CharField(default="")
-    search_cant_contain = models.CharField(default="")
-    full_query = models.CharField(default="")
+    search_must_contain = models.CharField( max_length=350, default="")
+    search_at_least_one = models.CharField(max_length=350, default="")
+    search_cant_contain = models.CharField(max_length=350, default="")
+    full_query = models.CharField(max_length=350, default="")
 
     # Location
-    city = models.CharField(default="")
-    state = models.CharField(default="")
-    location = models.CharField(default="")
+    city = models.CharField(max_length=50, default="")
+    state = models.CharField(max_length=2, default="")
+    location = models.CharField(max_length=350, default="")
 
     # Sort by relevance or date
-    sort = models.CharField(default="date")
+    sort = models.CharField(max_length=15, default="date")
 
     # API format output
     # json or xml
-    format = models.CharField(default="json")
+    format = models.CharField(max_length=4, default="json")
 
     # Radius from search location in miles
-    radius = "15"
+    radius = models.CharField(max_length=4, default="15")
 
     # Site type
     # "jobsite", "employer", blank for both
-    site_type = models.CharField(default="")
+    site_type = models.CharField(max_length=25, default="")
 
     # Job type
     # "fulltime", "parttime", "contract", "internship", "temporary"
-    job_type = models.CharField(default="")
+    job_type = models.CharField(max_length=350, default="fulltime")
 
     # Start results at this number
-    results_start = models.CharField(default="")
+    results_start = models.CharField(max_length=4, default="")
 
     # Max number of results
     # 10, 20, 30, 40, 50
-    results_limit = models.CharField(default="50")
+    results_limit = models.CharField(max_length=4, default="50")
 
     # Number of days back to search
     # any, 1, 3, 7, 15
-    post_age = models.CharField(default="7")
+    post_age = models.CharField(max_length=4, default="7")
 
     # Filter duplicates
     # Off - 0, on - 1
-    toggle_filter = models.CharField(default="1")
+    toggle_filter = models.CharField(max_length=1, default="1")
 
     # Show lat long coodinates
     # Off - 0, on - 1
-    return_latlong = models.CharField(default="0")
+    return_latlong = models.CharField(max_length=1, default="0")
 
     # Search within a country
-    country = models.CharField(default="us")
+    country = models.CharField(max_length=25, default="us")
 
     # Group requests to a specific channel
     # This can be set on your Indeed developer page
-    channel = models.CharField(default="")
+    channel = models.CharField(max_length=350, default="")
 
     # IP of the end-user to whom the job results are displayed to
-    userip = models.CharField(default="1.2.3.4")
+    userip = models.CharField(max_length=25, default="1.2.3.4")
 
     # Browser type of the end user
-    useragent = models.CharField(default="Mozilla/%2F4.0%28Firefox%29")
+    useragent = models.CharField(max_length=350, default="Mozilla/%2F4.0%28Firefox%29")
 
     # API Version
-    version = models.CharField(default="2")
+    version = models.CharField(max_length=4, default="2")
 
     def return_location(self):
         # Returns a url-friendly version of the location
@@ -98,17 +98,17 @@ class JobAPI(models.Model):
         search_url = ""
         if self.search_must_contain:
             search_url += self.convert_search_terms_for_url(url_terms=self.search_must_contain,
-                                               url_type="all")
+                                                            url_type="all")
         if self.search_at_least_one:
             if self.search_must_contain:
                 search_url += "+"
             search_url += self.convert_search_terms_for_url(url_terms=self.search_at_least_one,
-                                               url_type="one")
+                                                            url_type="one")
         if self.search_cant_contain:
             if self.search_must_contain or self.search_at_least_one:
                 search_url += "+"
             search_url += self.convert_search_terms_for_url(url_terms=self.search_cant_contain,
-                                               url_type="none")
+                                                            url_type="none")
 
         return search_url
 
@@ -141,26 +141,29 @@ class JobAPI(models.Model):
                     "v=" + self.version
         return built_url
 
+    def __str__(self):
+        return self.city
+
 
 class JobPost(models.Model):
-    job_title = models.CharField(default='')
-    company = models.CharField(default='')
-    city = models.CharField(default='')
-    state = models.CharField(default='')
-    country = models.CharField(default='')
-    language = models.CharField(default='')
-    formatted_location = models.CharField(default='')
-    source = models.CharField(default='')
-    date = models.CharField(default='')
-    snippet = models.CharField(default='')
-    url = models.CharField(default='')
-    onmousedown = models.CharField(default='')
-    job_key = models.CharField(default='')
-    sponsored = models.CharField(default='')
-    expired = models.CharField(default='')
-    indeed_apply = models.CharField(default='')
-    formatted_location_full = models.CharField(default='')
-    formatted_relative_time = models.CharField(default='')
+    job_title = models.CharField(max_length=350, default='')
+    company = models.CharField(max_length=350, default='')
+    city = models.CharField(max_length=350, default='')
+    state = models.CharField(max_length=350, default='')
+    country = models.CharField(max_length=350, default='')
+    language = models.CharField(max_length=350, default='')
+    formatted_location = models.CharField(max_length=350, default='')
+    source = models.CharField(max_length=350, default='')
+    date = models.CharField(max_length=350, default='')
+    snippet = models.CharField(max_length=350, default='')
+    url = models.CharField(max_length=350, default='')
+    onmousedown = models.CharField(max_length=350, default='')
+    job_key = models.CharField(max_length=350, default='')
+    sponsored = models.CharField(max_length=350, default='')
+    expired = models.CharField(max_length=350, default='')
+    indeed_apply = models.CharField(max_length=350, default='')
+    formatted_location_full = models.CharField(max_length=350, default='')
+    formatted_relative_time = models.CharField(max_length=350, default='')
 
     def __str__(self):
         return self.job_title
