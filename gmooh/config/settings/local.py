@@ -1,9 +1,9 @@
 """
-Local settings for gmooh project.
+Local settings for GMOOH project.
 
 - Run in Debug mode
 
-- Use mailhog for emails via Docker
+- Use console backend for emails
 
 - Add Django Debug Toolbar
 - Add django-extensions as app
@@ -20,14 +20,16 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key only used for development and testing.
-SECRET_KEY = env('DJANGO_SECRET_KEY', default=':Uf/BZ_o.Qf5iz$oU>5{EB>L_C~ndbMP)CZo[wec/T4ppVm{DJ')
+SECRET_KEY = env('DJANGO_SECRET_KEY', default=',[>?2N^U9b{*9/RSA!O/(aej~3.(5I^d&#8LT5y{@/.o;FjF/o')
 
 # Mail settings
 # ------------------------------------------------------------------------------
 
 EMAIL_PORT = 1025
 
-EMAIL_HOST = env('EMAIL_HOST', default='mailhog')
+EMAIL_HOST = 'localhost'
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
+                    default='django.core.mail.backends.console.EmailBackend')
 
 
 # CACHING
@@ -68,11 +70,6 @@ INSTALLED_APPS += ['django_extensions', ]
 # TESTING
 # ------------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
-
-########## CELERY
-# In development, all tasks will be executed locally by blocking until the task returns
-CELERY_ALWAYS_EAGER = True
-########## END CELERY
 
 # Your local stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------

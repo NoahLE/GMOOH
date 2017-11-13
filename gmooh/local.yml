@@ -5,13 +5,12 @@ volumes:
   postgres_backup_local: {}
 
 services:
-  django: &django
+  django:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
     depends_on:
       - postgres
-      - mailhog
     volumes:
       - .:/app
     environment:
@@ -31,32 +30,4 @@ services:
     environment:
       - POSTGRES_USER=gmooh
 
-  mailhog:
-    image: mailhog/mailhog:v1.0.0
-    ports:
-      - "8025:8025"
-
-
-  redis:
-    image: redis:3.0
-
-  celeryworker:
-    # https://github.com/docker/compose/issues/3220
-    <<: *django
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celeryworker.sh
-
-  celerybeat:
-    # https://github.com/docker/compose/issues/3220
-    <<: *django
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celerybeat.sh
 

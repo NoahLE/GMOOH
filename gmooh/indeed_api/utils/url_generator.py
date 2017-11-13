@@ -53,7 +53,7 @@ class IndeedAPI:
 
         # Show lat long coodinates
         # Off - 0, on - 1
-        self.latlong = "0"
+        self.return_latlong = "0"
 
         # Search within a country
         self.country = "us"
@@ -128,7 +128,7 @@ class IndeedAPI:
                     "limit=" + self.results_limit + "&" + \
                     "post_age=" + self.post_age + "&" + \
                     "filter=" + self.toggle_filter + "&" + \
-                    "latlong=" + self.latlong + "&" + \
+                    "return_latlong=" + self.return_latlong + "&" + \
                     "co=" + self.country + "&" + \
                     "chnl=" + self.channel + "&" + \
                     "userip=" + self.userip + "&" + \

@@ -1,4 +1,4 @@
-# gmooh documentation build configuration file, created by
+# GMOOH documentation build configuration file, created by
 # sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -39,7 +39,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'gmooh'
+project = 'GMOOH'
 copyright = """2017, NoahLE"""
 
 # The version info for the project you're documenting, acts as replacement for
@@ -184,7 +184,7 @@ latex_elements = {
 latex_documents = [
     ('index',
      'gmooh.tex',
-     'gmooh Documentation',
+     'GMOOH Documentation',
      """NoahLE""", 'manual'),
 ]
 
@@ -214,7 +214,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'gmooh', 'gmooh Documentation',
+    ('index', 'gmooh', 'GMOOH Documentation',
      ["""NoahLE"""], 1)
 ]
 
@@ -228,9 +228,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'gmooh', 'gmooh Documentation',
-     """NoahLE""", 'gmooh',
-     """A job hunting web application.""", 'Miscellaneous'),
+    ('index', 'gmooh', 'GMOOH Documentation',
+     """NoahLE""", 'GMOOH',
+     """A job scraper with a local web interface. Powered by Python.""", 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

@@ -1,6 +1,6 @@
 import os
 
-from indeed_api import IndeedAPI
+from indeed_api.utils import IndeedAPI
 
 API_key = os.environ['INDEED_PUBLISHER_API']
 
@@ -25,6 +25,7 @@ if __name__ == "__main__":
     d.post_age = "7"
     d.results_limit = "50"
     d.results_start = ""
+    d.return_latlong = "1"
 
     # Build location and search results
     d.query = d.return_query_string()

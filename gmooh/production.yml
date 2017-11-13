@@ -6,7 +6,7 @@ volumes:
   caddy: {}
 
 services:
-  django: &django
+  django:
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
@@ -40,18 +40,4 @@ services:
 
   redis:
     image: redis:3.0
-
-  celeryworker:
-    <<: *django
-    depends_on:
-     - postgres
-     - redis
-    command: /start-celeryworker.sh
-
-  celerybeat:
-    <<: *django
-    depends_on:
-      - postgres
-      - redis
-    command: /start-celerybeat.sh
 

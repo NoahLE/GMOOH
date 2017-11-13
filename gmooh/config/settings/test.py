@@ -1,5 +1,5 @@
 """
-Test settings for gmooh project.
+Test settings for GMOOH project.
 
 - Used to run tests fast on the continuous integration server and locally
 """

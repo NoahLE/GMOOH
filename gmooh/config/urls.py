@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
+    url(r'indeed/', include('indeed_api.urls', namespace='indeed'))
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
