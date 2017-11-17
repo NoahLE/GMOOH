@@ -2,4 +2,8 @@
 
 {% block content %}
     <p>I'm the search page!</p>
+
+    {{ search_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Search">
 {% endblock content %}

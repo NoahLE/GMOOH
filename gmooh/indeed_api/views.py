@@ -1,22 +1,26 @@
-from django.shortcuts import render
-
 import os
 
-from .models import JobAPI, JobPost
+from django.shortcuts import render
+
+from .forms import SearchForm
+from .models import JobAPI
 
 
 # Search
 def search(request):
     # if not post - return empty form
-
+    search_form = SearchForm()
     # if post - process form and build url
 
-        # run the query url
+    # run the query url
 
 
-        # save results to database and redirect to job listings page
+    # save results to database and redirect to job listings page
+    context = {
+        'search_form': search_form
+    }
 
-    return render(request, template_name='indeed_api/search.html')
+    return render(request, template_name='indeed_api/search.html', context=context)
 
 
 # Results page
@@ -26,6 +30,7 @@ def results(request):
     # if post - apply filter and return listings!
 
     return render(request, template_name='indeed_api/results.html')
+
 
 # Job posting
 
