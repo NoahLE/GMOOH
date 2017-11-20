@@ -48,7 +48,7 @@ class JobAPI(models.Model):
                               default="json",
                               blank=False)
 
-    # Radius from search location in miles
+    # Radius from search location (in miles)
     radius = models.CharField(max_length=4,
                               default="15",
                               blank=False)
@@ -119,6 +119,18 @@ class JobAPI(models.Model):
     version = models.CharField(max_length=4,
                                default="2",
                                blank=False)
+
+    # The full URL sent to the Indeed API
+    url_for_api = models.CharField(max_length=500,
+                                   default='',
+                                   blank=True)
+
+    # Tracks if the URL was sent to the API or not
+    url_run = models.BooleanField(default=False)
+
+    # Tracks when the URL was created and updated
+    url_created = models.DateTimeField(auto_now_add=True)
+    url_updated = models.DateTimeField(auto_now=True)
 
     def return_location(self):
         # Returns a url-friendly version of the location

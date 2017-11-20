@@ -18,27 +18,30 @@ def index(request):
 
 # Search
 def search(request):
-    # if not post - return empty form
-    search_form = SearchForm()
     final_url = ''
+    search_form = SearchForm()
 
-    # if post - process form and build url
+    # if post - process form and build url with form data
+    # otherwise, return an empty search form
     if request.method == 'POST':
         submitted_form = SearchForm(request.POST)
         if submitted_form.is_valid():
-            api_search = JobAPI()
-            api_search.api_key = os.environ['INDEED_PUBLISHER_API']
+            form_data = submitted_form.save(commit=False)
 
-            api_search.search_must_contain = submitted_form.cleaned_data['search_must_contain']
-            api_search.search_at_least_one = submitted_form.cleaned_data['search_at_least_one']
-            api_search.search_cant_contain = submitted_form.cleaned_data['search_cant_contain']
-            api_search.full_query = api_search.return_query_string()
+            form_data.api_key = os.environ['INDEED_PUBLISHER_API']
 
-            api_search.city = submitted_form.cleaned_data['city']
-            api_search.state = submitted_form.cleaned_data['state']
-            api_search.location = api_search.return_location()
+            form_data.search_must_contain = submitted_form.cleaned_data['search_must_contain']
+            form_data.search_at_least_one = submitted_form.cleaned_data['search_at_least_one']
+            form_data.search_cant_contain = submitted_form.cleaned_data['search_cant_contain']
+            form_data.full_query = form_data.return_query_string()
 
-            final_url = api_search.build_url_job_search()
+            form_data.city = submitted_form.cleaned_data['city']
+            form_data.state = submitted_form.cleaned_data['state']
+            form_data.location = form_data.return_location()
+
+            form_data.url_for_api = form_data.build_url_job_search()
+
+            form_data.save()
 
 
     # run the query url
