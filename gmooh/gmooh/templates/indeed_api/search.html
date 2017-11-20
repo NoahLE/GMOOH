@@ -3,7 +3,12 @@
 {% block content %}
     <p>I'm the search page!</p>
 
-    {{ search_form.as_p }}
-    {% csrf_token %}
-    <input type="submit" value="Search">
+    <form action="{% url 'indeed:search' %}" method="post">
+        {{ search_form.as_p }}
+        {% csrf_token %}
+        <input class="btn btn-success" type="submit" value="Search">
+        <a href="{% url 'indeed:index' %}">
+            <button type="button" class="btn btn-primary">Return home</button>
+        </a>
+    </form>
 {% endblock content %}

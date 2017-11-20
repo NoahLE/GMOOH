@@ -3,71 +3,122 @@ from django.db import models
 
 class JobAPI(models.Model):
     # API Key
-    api_key = models.CharField(default="", max_length=50)
+    api_key = models.CharField(default="",
+                               max_length=50,
+                               blank=False)
 
     # Query
-    search_must_contain = models.CharField( max_length=350, default="")
-    search_at_least_one = models.CharField(max_length=350, default="")
-    search_cant_contain = models.CharField(max_length=350, default="")
-    full_query = models.CharField(max_length=350, default="")
+    search_must_contain = models.CharField(max_length=350,
+                                           default="",
+                                           blank=True)
+
+    search_at_least_one = models.CharField(max_length=350,
+                                           default="",
+                                           blank=True)
+
+    search_cant_contain = models.CharField(max_length=350,
+                                           default="",
+                                           blank=True)
+
+    full_query = models.CharField(max_length=350,
+                                  default="",
+                                  blank=True)
 
     # Location
-    city = models.CharField(max_length=50, default="")
-    state = models.CharField(max_length=2, default="")
-    location = models.CharField(max_length=350, default="")
+    city = models.CharField(max_length=50,
+                            default="",
+                            blank=False)
+
+    state = models.CharField(max_length=2,
+                             default="",
+                             blank=False)
+
+    location = models.CharField(max_length=350,
+                                default="",
+                                blank=True)
 
     # Sort by relevance or date
-    sort = models.CharField(max_length=15, default="date")
+    sort = models.CharField(max_length=15,
+                            default="date",
+                            blank=False)
 
     # API format output
     # json or xml
-    format = models.CharField(max_length=4, default="json")
+    format = models.CharField(max_length=4,
+                              default="json",
+                              blank=False)
 
     # Radius from search location in miles
-    radius = models.CharField(max_length=4, default="15")
+    radius = models.CharField(max_length=4,
+                              default="15",
+                              blank=False)
 
     # Site type
     # "jobsite", "employer", blank for both
-    site_type = models.CharField(max_length=25, default="")
+    site_type = models.CharField(max_length=25,
+                                 default="",
+                                 blank=True)
 
     # Job type
     # "fulltime", "parttime", "contract", "internship", "temporary"
-    job_type = models.CharField(max_length=350, default="fulltime")
+    job_type = models.CharField(max_length=350,
+                                default="fulltime",
+                                blank=True)
 
     # Start results at this number
-    results_start = models.CharField(max_length=4, default="")
+    results_start = models.CharField(max_length=4,
+                                     default="",
+                                     blank=True)
 
     # Max number of results
     # 10, 20, 30, 40, 50
-    results_limit = models.CharField(max_length=4, default="50")
+    results_limit = models.CharField(max_length=4,
+                                     default="50",
+                                     blank=False)
 
     # Number of days back to search
     # any, 1, 3, 7, 15
-    post_age = models.CharField(max_length=4, default="7")
+    post_age = models.CharField(max_length=4,
+                                default="7",
+                                blank=False)
 
     # Filter duplicates
     # Off - 0, on - 1
-    toggle_filter = models.CharField(max_length=1, default="1")
+    toggle_filter = models.CharField(max_length=1,
+                                     default="1",
+                                     blank=True)
 
     # Show lat long coodinates
     # Off - 0, on - 1
-    return_latlong = models.CharField(max_length=1, default="0")
+    return_latlong = models.CharField(max_length=1,
+                                      default="0",
+                                      blank=False)
 
     # Search within a country
-    country = models.CharField(max_length=25, default="us")
+    country = models.CharField(max_length=25,
+                               default="us",
+                               blank=False)
 
     # Group requests to a specific channel
     # This can be set on your Indeed developer page
-    channel = models.CharField(max_length=350, default="")
+    channel = models.CharField(max_length=350,
+                               default="",
+                               blank=True)
 
     # IP of the end-user to whom the job results are displayed to
-    userip = models.CharField(max_length=25, default="1.2.3.4")
+    userip = models.CharField(max_length=25,
+                              default="1.2.3.4",
+                              blank=False)
 
     # Browser type of the end user
-    useragent = models.CharField(max_length=350, default="Mozilla/%2F4.0%28Firefox%29")
+    useragent = models.CharField(max_length=350,
+                                 default="Mozilla/%2F4.0%28Firefox%29",
+                                 blank=False)
 
     # API Version
-    version = models.CharField(max_length=4, default="2")
+    version = models.CharField(max_length=4,
+                               default="2",
+                               blank=False)
 
     def return_location(self):
         # Returns a url-friendly version of the location

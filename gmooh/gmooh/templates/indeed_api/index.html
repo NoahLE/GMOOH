@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>I am a page</p>
+    <h2>Welcome to the home page</h2>
+
+    <a href="{% url 'indeed:search' %}">
+        <button type="button" class="btn btn-primary">Search for listings</button>
+    </a>
+
+    <a href="">
+        <button type="button" class="btn btn-primary">Old searches</button>
+    </a>
+
+    <a href="{% url 'indeed:results' %}">
+        <button type="button" class="btn btn-success">View listing results</button>
+    </a>
+
     <p>{{ api_url }}</p>
 {% endblock content %}
