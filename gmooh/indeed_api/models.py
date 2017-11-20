@@ -184,6 +184,7 @@ class JobAPI(models.Model):
                     "q=" + self.full_query + "&" + \
                     "l=" + self.location + "&" + \
                     "sort=" + self.sort + "&" + \
+                    "format=" + self.format + "&" + \
                     "radius=" + self.radius + "&" + \
                     "st=" + self.site_type + "&" + \
                     "jt=" + self.job_type + "&" + \
