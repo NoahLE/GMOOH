@@ -128,6 +128,7 @@ class JobAPI(models.Model):
 
     def convert_search_terms_for_url(self, url_terms="", url_type=""):
         # Helper function for return_query_string()
+
         # Returns the user's search terms formatted for API call
         # all of these words - java+manager
         # at least one of these - %28python+or+javascript%29
@@ -198,24 +199,59 @@ class JobAPI(models.Model):
 
 
 class JobPost(models.Model):
-    job_title = models.CharField(max_length=350, default='')
-    company = models.CharField(max_length=350, default='')
-    city = models.CharField(max_length=350, default='')
-    state = models.CharField(max_length=350, default='')
-    country = models.CharField(max_length=350, default='')
-    language = models.CharField(max_length=350, default='')
-    formatted_location = models.CharField(max_length=350, default='')
-    source = models.CharField(max_length=350, default='')
-    date = models.CharField(max_length=350, default='')
-    snippet = models.CharField(max_length=350, default='')
-    url = models.CharField(max_length=350, default='')
-    onmousedown = models.CharField(max_length=350, default='')
-    job_key = models.CharField(max_length=350, default='')
-    sponsored = models.CharField(max_length=350, default='')
-    expired = models.CharField(max_length=350, default='')
-    indeed_apply = models.CharField(max_length=350, default='')
-    formatted_location_full = models.CharField(max_length=350, default='')
-    formatted_relative_time = models.CharField(max_length=350, default='')
+    job_title = models.CharField(max_length=350,
+                                 default='')
+
+    company = models.CharField(max_length=350,
+                               default='')
+
+    city = models.CharField(max_length=350,
+                            default='')
+
+    state = models.CharField(max_length=350,
+                             default='')
+
+    country = models.CharField(max_length=350,
+                               default='')
+
+    language = models.CharField(max_length=350,
+                                default='')
+
+    formatted_location = models.CharField(max_length=350,
+                                          default='')
+
+    source = models.CharField(max_length=350,
+                              default='')
+
+    date = models.CharField(max_length=350,
+                            default='')
+
+    snippet = models.CharField(max_length=350,
+                               default='')
+
+    url = models.CharField(max_length=350,
+                           default='')
+
+    onmousedown = models.CharField(max_length=350,
+                                   default='')
+
+    job_key = models.CharField(max_length=350,
+                               default='')
+
+    sponsored = models.CharField(max_length=350,
+                                 default='')
+
+    expired = models.CharField(max_length=350,
+                               default='')
+
+    indeed_apply = models.CharField(max_length=350,
+                                    default='')
+
+    formatted_location_full = models.CharField(max_length=350,
+                                               default='')
+
+    formatted_relative_time = models.CharField(max_length=350,
+                                               default='')
 
     def __str__(self):
         return self.job_title
