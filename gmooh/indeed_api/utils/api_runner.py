@@ -54,23 +54,24 @@ def run_api_urls():
             results = parsed_data['results']
 
             for result in results:
-                JobPost.objects.get_or_create(
-                    job_title=result['jobtitle'],
-                    company=result['company'],
-                    source=result['source'],
-                    language=result['language'],
+                if not JobPost.objects.filter(job_key=result['jobkey']).exists():
+                    JobPost.objects.get_or_create(
+                        job_title=result['jobtitle'],
+                        company=result['company'],
+                        source=result['source'],
+                        language=result['language'],
 
-                    city=result['city'],
-                    state=result['state'],
-                    country=result['country'],
-                    formatted_location=result['formattedLocationFull'],
+                        city=result['city'],
+                        state=result['state'],
+                        country=result['country'],
+                        formatted_location=result['formattedLocationFull'],
 
-                    date=result['date'],
-                    snippet=result['snippet'],
-                    job_key=result['jobkey'],
-                    url=result['url'],
+                        date=result['date'],
+                        snippet=result['snippet'],
+                        job_key=result['jobkey'],
+                        url=result['url'],
 
-                    sponsored=result['sponsored'],
-                    expired=result['expired'],
-                    onmousedown=result['onmousedown']
-                )
+                        sponsored=result['sponsored'],
+                        expired=result['expired'],
+                        onmousedown=result['onmousedown']
+                    )
