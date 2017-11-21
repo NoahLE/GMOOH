@@ -19,7 +19,6 @@ def index(request):
 
 # Search
 def search(request):
-    final_url = ''
     search_form = SearchForm()
 
     # if post - process form and build url with form data
@@ -44,38 +43,27 @@ def search(request):
 
             if JobAPI.objects.filter(url_for_api=form_data.url_for_api).exists():
                 # Search already exists
-                # Redirect to result
+                # Redirect to results, order of terms shouldn't matter
                 pass
             else:
                 form_data.save()
                 return redirect(reverse("indeed_api:index"))
 
-
-    # run the query url
-
-
-    # Call api and return url
-
-
-    # URl building mechanics
-
-
-
-    # save results to database and redirect to job listings page
     context = {
-        'search_form': search_form,
-        'final_url': final_url
+        'search_form': search_form
     }
 
-    return render(request, template_name='indeed_api/search.html', context=context)  # Results page
+    return render(request, template_name='indeed_api/search.html', context=context)
 
 
 def results(request):
-    # if not post, show all listings!
+    # get newest listings, fresh off the press
     run_api_urls()
 
-    # if post - apply filter and return listings!
+    # get all job listings
     jobs = JobPost.objects.all()
+
+    # if post - filter by categories
 
     context = {
         'woof': 'dog',
@@ -83,5 +71,3 @@ def results(request):
     }
 
     return render(request, template_name='indeed_api/results.html', context=context)
-
-# Job posting
