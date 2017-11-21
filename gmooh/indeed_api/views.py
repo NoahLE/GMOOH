@@ -3,7 +3,7 @@ import os
 from django.shortcuts import render
 
 from .forms import SearchForm
-from .models import JobAPI
+from .models import JobAPI, JobPost
 from .utils.api_runner import run_api_urls
 
 
@@ -65,13 +65,15 @@ def search(request):
 
 
 def results(request):
-    # if not post, show all listings!
+    # Run the API (mock) results
     run_api_urls()
 
-    # if post - apply filter and return listings!
+    # If listings, show them!
+    jobs = JobPost.objects.all()
 
     context = {
-        'woof': 'dog'
+        'woof': 'dog',
+        'jobs': jobs
     }
 
     return render(request, template_name='indeed_api/results.html', context=context)

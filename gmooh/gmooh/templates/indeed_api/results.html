@@ -1,5 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <h2>I am the results page</h2>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Date</th>
+                <th>Snippet</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        {% for listing in jobs %}
+            <tr>
+                <td>{{ listing.job_title }}</td>
+                <td>{{ listing.company }}</td>
+                <td>{{ listing.city }}</td>
+                <td>{{ listing.state }}</td>
+                <td>{{ listing.date }}</td>
+                <td>{{ listing.snippet }}</td>
+                <td><a href="{{ listing.url }}">Link</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
 {% endblock content %}
