@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, reverse
 
 from .forms import SearchForm
 from .models import JobAPI, JobPost
-from .utils.api_runner import run_api_urls
+from .utils.api_runner import api_main
 
 
 def index(request):
@@ -58,7 +58,7 @@ def search(request):
 
 def results(request):
     # get newest listings, fresh off the press
-    run_api_urls()
+    api_main()
 
     # get all job listings
     jobs = JobPost.objects.all()

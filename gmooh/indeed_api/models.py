@@ -133,6 +133,13 @@ class JobAPI(models.Model):
     # Tracks if the URL was sent to the API or not
     url_run = models.BooleanField(default=False)
 
+    # Sorts seed urls from batch urls
+    # seed - urls are reused for getting the number of results
+    # batch - emails can change daily (based on the number of listings posted)
+    url_type = models.CharField(max_length=25,
+                                default="seed",
+                                blank=True)
+
     # Tracks when the URL was created and updated
     url_created = models.DateTimeField(auto_now_add=True)
     url_updated = models.DateTimeField(auto_now=True)
@@ -216,6 +223,10 @@ class JobAPI(models.Model):
     def __str__(self):
         return self.full_query
 
+    class Meta:
+        verbose_name = 'JobAPI'
+        verbose_name_plural = 'JobAPI Results'
+
 
 class JobPost(models.Model):
     job_title = models.CharField(max_length=350,
@@ -265,3 +276,7 @@ class JobPost(models.Model):
 
     def __str__(self):
         return self.job_title
+
+    class Meta:
+        verbose_name = "Job post"
+        verbose_name_plural = "Job posts"
