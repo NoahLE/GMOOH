@@ -43,7 +43,12 @@ def build_batch_urls(url_object, total_results):
         new_batch.url_type = "batch"
         new_batch.results_start = str(batch * 25)
         new_batch.build_url_job_search()
-        new_batch.save()
+
+        # If the batch URL doesn't exist, save it
+        if not JobAPI.objects.filter(url_type=new_batch.url_type,
+                                     results_start=new_batch.results_start,
+                                     url_for_api=new_batch.url_for_api).exists():
+            new_batch.save()
 
 
 # Runs each query url through the API and returns the number of results and each result
@@ -52,6 +57,7 @@ def run_api(urls):
         result = requests.get(url.url_for_api)
         if result.status_code == 200:
             url.url_run = True
+            url.save()
 
             data_to_parse = result.text
             parsed_data = json.loads(data_to_parse)

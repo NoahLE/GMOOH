@@ -8,7 +8,7 @@
             <th>Job Title</th>
             <th>Company</th>
             <th>City</th>
-            <th>State</th>
+{#            <th>State</th>#}
             <th>Date Posted</th>
             <th>Snippet</th>
             <th>URL</th>
@@ -18,8 +18,8 @@
                 <td>{{ job.job_title }}</td>
                 <td>{{ job.company }}</td>
                 <td>{{ job.city }}</td>
-                <td>{{ job.state }}</td>
-                <td>{{ job.return_datetime|timesince }}</td>
+{#                <td>{{ job.state }}</td>#}
+                <td>{{ job.return_datetime|timesince }} ago</td>
                 <td>{{ job.snippet }}</td>
                 <td><a href="{{ job.url }}">Link</a></td>
             </tr>
