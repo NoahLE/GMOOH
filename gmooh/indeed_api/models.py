@@ -82,6 +82,11 @@ class JobAPI(models.Model):
                                 default="7",
                                 blank=False)
 
+    # Whether to bold searched words in listings
+    highlight = models.CharField(max_length=1,
+                                 default=0,
+                                 blank=True)
+
     # Filter duplicates
     # Off - 0, on - 1
     toggle_filter = models.CharField(max_length=1,
@@ -191,6 +196,7 @@ class JobAPI(models.Model):
                     "start=" + self.results_start + "&" + \
                     "limit=" + self.results_limit + "&" + \
                     "fromage=" + self.post_age + "&" + \
+                    "highlight=" + self.highlight + "&" + \
                     "filter=" + self.toggle_filter + "&" + \
                     "latlong=" + self.return_latlong + "&" + \
                     "co=" + self.country + "&" + \
@@ -256,15 +262,6 @@ class JobPost(models.Model):
 
     expired = models.CharField(max_length=350,
                                default='')
-
-    indeed_apply = models.CharField(max_length=350,
-                                    default='')
-
-    formatted_location_full = models.CharField(max_length=350,
-                                               default='')
-
-    formatted_relative_time = models.CharField(max_length=350,
-                                               default='')
 
     def __str__(self):
         return self.job_title

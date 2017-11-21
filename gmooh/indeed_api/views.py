@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from .forms import SearchForm
 from .models import JobAPI
+from .utils.api_runner import run_api_urls
 
 
 def index(request):
@@ -65,9 +66,14 @@ def search(request):
 
 def results(request):
     # if not post, show all listings!
+    run_api_urls()
 
     # if post - apply filter and return listings!
 
-    return render(request, template_name='indeed_api/results.html')
+    context = {
+        'woof': 'dog'
+    }
+
+    return render(request, template_name='indeed_api/results.html', context=context)
 
 # Job posting
