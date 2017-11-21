@@ -1,6 +1,6 @@
 import os
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 
 from .forms import SearchForm
 from .models import JobAPI
@@ -42,7 +42,13 @@ def search(request):
 
             form_data.url_for_api = form_data.build_url_job_search()
 
-            form_data.save()
+            if JobAPI.objects.filter(url_for_api=form_data.url_for_api).exists():
+                # Search already exists
+                # Redirect to result
+                pass
+            else:
+                form_data.save()
+                return redirect(reverse("indeed_api:index"))
 
 
     # run the query url
