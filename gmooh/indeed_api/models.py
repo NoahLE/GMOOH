@@ -84,7 +84,7 @@ class JobAPI(models.Model):
 
     # Whether to bold searched words in listings
     highlight = models.CharField(max_length=1,
-                                 default=0,
+                                 default="0",
                                  blank=True)
 
     # Filter duplicates
@@ -127,7 +127,7 @@ class JobAPI(models.Model):
 
     # The full URL sent to the Indeed API
     url_for_api = models.CharField(max_length=500,
-                                   default='',
+                                   default="",
                                    blank=True)
 
     # Tracks if the URL was sent to the API or not
@@ -219,49 +219,49 @@ class JobAPI(models.Model):
 
 class JobPost(models.Model):
     job_title = models.CharField(max_length=350,
-                                 default='')
+                                 default="")
 
     company = models.CharField(max_length=350,
-                               default='')
+                               default="")
 
     city = models.CharField(max_length=350,
-                            default='')
+                            default="")
 
     state = models.CharField(max_length=350,
-                             default='')
+                             default="")
 
     country = models.CharField(max_length=350,
-                               default='')
+                               default="")
 
     language = models.CharField(max_length=350,
-                                default='')
+                                default="")
 
     formatted_location = models.CharField(max_length=350,
-                                          default='')
+                                          default="")
 
     source = models.CharField(max_length=350,
-                              default='')
+                              default="")
 
     date = models.CharField(max_length=350,
-                            default='')
+                            default="")
 
     snippet = models.CharField(max_length=350,
-                               default='')
+                               default="")
 
     url = models.CharField(max_length=350,
-                           default='')
+                           default="")
 
     onmousedown = models.CharField(max_length=350,
-                                   default='')
+                                   default="")
 
     job_key = models.CharField(max_length=350,
-                               default='')
+                               default="")
 
     sponsored = models.CharField(max_length=350,
-                                 default='')
+                                 default="")
 
     expired = models.CharField(max_length=350,
-                               default='')
+                               default="")
 
     def __str__(self):
         return self.job_title

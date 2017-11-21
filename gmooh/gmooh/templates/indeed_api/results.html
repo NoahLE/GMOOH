@@ -1,31 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <h2>I am the results page</h2>
 
     <table class="table table-striped">
+        <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Source</th>
+            <th>Snippet</th>
+            <th>URL</th>
+        </tr>
+        {% for job in jobs %}
             <tr>
-                <th>Job Title</th>
-                <th>Company</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Date</th>
-                <th>Snippet</th>
-                <th>URL</th>
-            </tr>
-        {% for listing in jobs %}
-            <tr>
-                <td>{{ listing.job_title }}</td>
-                <td>{{ listing.company }}</td>
-                <td>{{ listing.city }}</td>
-                <td>{{ listing.state }}</td>
-                <td>{{ listing.date }}</td>
-                <td>{{ listing.snippet }}</td>
-                <td><a href="{{ listing.url }}">Link</a></td>
+                <td>{{ job.job_title }}</td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.city }}</td>
+                <td>{{ job.state }}</td>
+                <td>{{ job.source }}</td>
+                <td>{{ job.snippet }}</td>
+                <td><a href="{{ job.url }}">Link</a></td>
             </tr>
         {% endfor %}
     </table>
-
-
 {% endblock content %}
