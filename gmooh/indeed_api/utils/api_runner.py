@@ -71,5 +71,4 @@ def api_main():
                                               url_type="batch")
 
     run_api(seed_urls_to_run)
-
     run_api(batch_urls_to_run)

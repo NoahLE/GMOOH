@@ -1,5 +1,6 @@
 from django.db import models
 
+import datetime
 
 class JobAPI(models.Model):
     # API Key
@@ -273,6 +274,11 @@ class JobPost(models.Model):
 
     expired = models.CharField(max_length=350,
                                default="")
+
+    def return_datetime(self):
+        return datetime.datetime.strptime(self.date, "%a, %d %b %Y %H:%M:%S %Z")
+
+        # self.date = Mon, 20 Nov 2017 02:42:15 GMT
 
     def __str__(self):
         return self.job_title
