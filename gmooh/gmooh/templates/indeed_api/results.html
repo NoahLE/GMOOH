@@ -2,4 +2,27 @@
 
 {% block content %}
     <h2>I am the results page</h2>
+
+    <table class="table">
+        <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Source</th>
+            <th>Snippet</th>
+            <th>URL</th>
+        </tr>
+        {% for job in jobs %}
+            <tr>
+                <td>{{ job.job_title }}</td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.city }}</td>
+                <td>{{ job.state }}</td>
+                <td>{{ job.source }}</td>
+                <td>{{ job.snippet }}</td>
+                <td><a href="{{ job.url }}">Link</a></td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock content %}
