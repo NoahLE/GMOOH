@@ -5,40 +5,15 @@ import requests
 from indeed_api.models import JobAPI, JobPost
 
 
-def run_sample_api():
-    with open('indeed_api/utils/sample.json', 'r') as f:
-        data = json.load(f)
+def build_batch_urls(url_object, total_results):
+    number_of_batches = round(total_results / 25)
 
-        start = data['start']
-        end = data['end']
-        pageNumber = data['pageNumber']
-
-        # seems to max out at 25 - need loop for batches
-        total_results = data['totalResults']
-
-        results = data['results']
-
-        for result in results:
-            JobPost.objects.get_or_create(
-                job_title=result['jobtitle'],
-                company=result['company'],
-                source=result['source'],
-                language=result['language'],
-
-                city=result['city'],
-                state=result['state'],
-                country=result['country'],
-                formatted_location=result['formattedLocationFull'],
-
-                date=result['date'],
-                snippet=result['snippet'],
-                job_key=result['jobkey'],
-                url=result['url'],
-
-                sponsored=result['sponsored'],
-                expired=result['expired'],
-                onmousedown=result['onmousedown']
-            )
+    for batch in range(number_of_batches):
+        new_batch = url_object
+        new_batch.pk = None
+        new_batch.results_start = batch * 25
+        new_batch.build_url_job_search()
+        new_batch.save()
 
 
 def run_api_urls():
@@ -54,7 +29,12 @@ def run_api_urls():
 
             start = parsed_data['start']
             end = parsed_data['end']
-            pageNumber = parsed_data['pageNumber']
+            total_results = parsed_data['totalResults']
+
+            if total_results > 25:
+                build_batch_urls(url_object=url,
+                                 total_results=total_results)
+
             results = parsed_data['results']
 
             for result in results:

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>I am the results page</h2>
+    <h2>Results</h2>
 
     <table class="table table-striped">
         <tr>
@@ -9,7 +9,7 @@
             <th>Company</th>
             <th>City</th>
             <th>State</th>
-            <th>Source</th>
+            <th>Date Posted</th>
             <th>Snippet</th>
             <th>URL</th>
         </tr>
@@ -19,7 +19,7 @@
                 <td>{{ job.company }}</td>
                 <td>{{ job.city }}</td>
                 <td>{{ job.state }}</td>
-                <td>{{ job.source }}</td>
+                <td>{{ job.date }}</td>
                 <td>{{ job.snippet }}</td>
                 <td><a href="{{ job.url }}">Link</a></td>
             </tr>

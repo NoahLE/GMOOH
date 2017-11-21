@@ -7,7 +7,7 @@ class JobAPI(models.Model):
                                max_length=50,
                                blank=False)
 
-    # Query
+    # Queries
     search_must_contain = models.CharField(max_length=350,
                                            default="",
                                            blank=True)
@@ -214,7 +214,7 @@ class JobAPI(models.Model):
         return built_url
 
     def __str__(self):
-        return self.city
+        return self.full_query
 
 
 class JobPost(models.Model):
