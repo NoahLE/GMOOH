@@ -5,7 +5,6 @@
     <h2>I am the results page</h2>
 
     <table class="table table-striped">
-        <thead class="thead-dark">
             <tr>
                 <th>Job Title</th>
                 <th>Company</th>
@@ -15,7 +14,6 @@
                 <th>Snippet</th>
                 <th>URL</th>
             </tr>
-        </thead>
         {% for listing in jobs %}
             <tr>
                 <td>{{ listing.job_title }}</td>

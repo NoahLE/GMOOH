@@ -12,6 +12,10 @@ def run_api_urls():
         start = data['start']
         end = data['end']
         pageNumber = data['pageNumber']
+
+        # seems to max out at 25 - need loop for batches
+        total_results = data['totalResults']
+
         results = data['results']
 
         for result in results:
