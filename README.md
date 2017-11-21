@@ -1,5 +1,9 @@
 # Get Me Out Here! (GMOOH)
 
+![landing-page](docs/landing-page.png)
+
+![results-page](docs/job-listings.png)
+
 GMOOH an application which calls the Indeed job API and displays the listings locally on the user's computer. My hope is this application will allow significantly better filtering, tracking, and will eventually plug into other job listing networks.
 
 ## Getting started
