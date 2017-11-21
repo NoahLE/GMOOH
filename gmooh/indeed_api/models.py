@@ -2,6 +2,7 @@ from django.db import models
 
 import datetime
 
+
 class JobAPI(models.Model):
     # API Key
     api_key = models.CharField(default="",
@@ -145,6 +146,11 @@ class JobAPI(models.Model):
     url_created = models.DateTimeField(auto_now_add=True)
     url_updated = models.DateTimeField(auto_now=True)
 
+    # Raw data from the API reply
+    raw_data = models.CharField(max_length=500000,
+                                default="",
+                                blank=True)
+
     def return_location(self):
         # Returns a url-friendly version of the location
         # examples: Austin%2C+TX / San+Francisco%2C+CA
@@ -167,6 +173,7 @@ class JobAPI(models.Model):
             url_terms = "-" + url_terms.replace(" ", "+-").lower()
         else:
             pass
+
         return url_terms
 
     def return_query_string(self):

@@ -56,11 +56,12 @@ def run_api(urls):
     for url in urls:
         result = requests.get(url.url_for_api)
         if result.status_code == 200:
-            url.url_run = True
-            url.save()
-
             data_to_parse = result.text
             parsed_data = json.loads(data_to_parse)
+
+            url.raw_data = parsed_data
+            url.url_run = True
+            url.save()
 
             total_results = parsed_data['totalResults']
             results = parsed_data['results']
