@@ -1,18 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Welcome to the home page</h2>
+    <h2>Indeed Job Search</h2>
 
     <a href="{% url 'indeed:search' %}">
         <button type="button" class="btn btn-primary">Search for listings</button>
     </a>
 
-{#    <a href="">#}
-{#        <button type="button" class="btn btn-primary">Placeholder</button>#}
-{#    </a>#}
-
     <a href="{% url 'indeed:results' %}">
         <button type="button" class="btn btn-success">View listings</button>
     </a>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Must have</th>
+            <th>Contains at least one</th>
+            <th>Can't contain</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Refresh results</th>
+        </tr>
+        {% for search in searches %}
+            <tr>
+                <td>{{ search.search_must_contain }}</td>
+                <td>{{ search.search_at_least_one }}</td>
+                <td>{{ search.search_cant_contain }}</td>
+                <td>{{ search.city }}</td>
+                <td>{{ search.state }}</td>
+                <td>Reload </td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock content %}

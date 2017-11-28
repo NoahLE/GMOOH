@@ -8,10 +8,11 @@ from .utils.api_runner import api_main
 
 
 def index(request):
-    # Not sure which logic will go here yet
+
+    searches = JobAPI.objects.all()
 
     context = {
-        "api_url": ":D"
+        "searches": searches,
     }
 
     return render(request, 'indeed_api/index.html', context=context)
@@ -66,8 +67,7 @@ def results(request):
     # if post - filter by categories
 
     context = {
-        'woof': 'dog',
-        'jobs': jobs
+        'jobs': jobs,
     }
 
     return render(request, template_name='indeed_api/results.html', context=context)

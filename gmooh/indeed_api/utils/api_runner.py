@@ -1,6 +1,7 @@
 import json
-import requests
 from math import ceil
+
+import requests
 
 from indeed_api.models import JobAPI, JobPost
 
@@ -71,11 +72,12 @@ def run_api(urls):
 
 
 def api_main():
-    seed_urls_to_run = JobAPI.objects.filter(url_run=False,
-                                             url_type="seed")
+    seed_urls_to_run = JobAPI.objects.filter(url_type="seed", )
+                                            # url_run=False,)
 
-    batch_urls_to_run = JobAPI.objects.filter(url_run=False,
-                                              url_type="batch")
+
+    batch_urls_to_run = JobAPI.objects.filter(url_type="batch", )
+                                            # url_run=False,)
 
     run_api(seed_urls_to_run)
     run_api(batch_urls_to_run)

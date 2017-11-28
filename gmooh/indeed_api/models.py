@@ -285,8 +285,6 @@ class JobPost(models.Model):
     def return_datetime(self):
         return datetime.datetime.strptime(self.date, "%a, %d %b %Y %H:%M:%S %Z")
 
-        # self.date = Mon, 20 Nov 2017 02:42:15 GMT
-
     def __str__(self):
         return self.job_title
 
