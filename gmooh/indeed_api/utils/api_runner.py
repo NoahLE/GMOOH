@@ -1,15 +1,16 @@
 import json
-from math import ceil
-
 import requests
+
+from math import ceil
 
 from indeed_api.models import JobAPI, JobPost
 
 
+# Helper function for - api_runner => run_api()
 # Takes the results from the Indeed API and saves each listing to the database
-# Helper function for - run_api()
-def save_posts_to_database(data):
+def save_posts_to_database(data, search_id):
     for result in data:
+        from_search = JobAPI.objects.get(pk=search_id)
         if not JobPost.objects.filter(job_key=result['jobkey']).exists():
             JobPost.objects.get_or_create(
                 job_title=result['jobtitle'],
@@ -29,12 +30,14 @@ def save_posts_to_database(data):
 
                 sponsored=result['sponsored'],
                 expired=result['expired'],
-                onmousedown=result['onmousedown']
+                onmousedown=result['onmousedown'],
+
+                from_search=from_search
             )
 
 
+# Helper function for - api_runner => run_api()
 # Builds URLs based on the number of results from the API call
-# Helper function for - run_api()
 def build_batch_urls(url_object, total_results):
     number_of_batches = int(ceil(total_results / 25))
 
@@ -68,16 +71,13 @@ def run_api(urls):
             results = parsed_data['results']
 
             build_batch_urls(url_object=url, total_results=total_results)
-            save_posts_to_database(data=results)
+            save_posts_to_database(data=results, search_id=url.pk)
 
 
 def api_main():
-    seed_urls_to_run = JobAPI.objects.filter(url_type="seed", )
-                                            # url_run=False,)
+    seed_urls_to_run = JobAPI.objects.filter(url_type="seed")
 
-
-    batch_urls_to_run = JobAPI.objects.filter(url_type="batch", )
-                                            # url_run=False,)
+    batch_urls_to_run = JobAPI.objects.filter(url_type="batch")
 
     run_api(seed_urls_to_run)
     run_api(batch_urls_to_run)

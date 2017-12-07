@@ -1,13 +1,14 @@
-from django.db import models
-
 import datetime
+import uuid
+import os
+
+from django.db import models
 
 
 class JobAPI(models.Model):
-    # API Key
-    api_key = models.CharField(default="",
-                               max_length=50,
-                               blank=False)
+    id = models.UUIDField(primary_key=True,
+                          default=uuid.uuid4,
+                          editable=False)
 
     # Queries
     search_must_contain = models.CharField(max_length=350,
@@ -200,7 +201,7 @@ class JobAPI(models.Model):
     def build_url_job_search(self):
         # Returns a search url for all job listings in a certain area
         built_url = "http://api.indeed.com/ads/apisearch?" + \
-                    "publisher=" + self.api_key + "&" + \
+                    "publisher=" + os.environ['INDEED_PUBLISHER_API'] + "&" + \
                     "q=" + self.full_query + "&" + \
                     "l=" + self.location + "&" + \
                     "sort=" + self.sort + "&" + \
@@ -237,6 +238,11 @@ class JobAPI(models.Model):
 
 
 class JobPost(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    from_search = models.ForeignKey('JobAPI',
+                                    on_delete=models.CASCADE)
+
     job_title = models.CharField(max_length=350,
                                  default="")
 
@@ -281,6 +287,8 @@ class JobPost(models.Model):
 
     expired = models.CharField(max_length=350,
                                default="")
+
+    listing_hidden = models.BooleanField(default=False)
 
     def return_datetime(self):
         return datetime.datetime.strptime(self.date, "%a, %d %b %Y %H:%M:%S %Z")

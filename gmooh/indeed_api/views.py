@@ -1,6 +1,6 @@
 import os
 
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect, get_object_or_404
 
 from .forms import SearchForm
 from .models import JobAPI, JobPost
@@ -18,7 +18,6 @@ def index(request):
     return render(request, 'indeed_api/index.html', context=context)
 
 
-# Search
 def search(request):
     search_form = SearchForm()
 
@@ -28,8 +27,6 @@ def search(request):
         submitted_form = SearchForm(request.POST)
         if submitted_form.is_valid():
             form_data = submitted_form.save(commit=False)
-
-            form_data.api_key = os.environ['INDEED_PUBLISHER_API']
 
             form_data.search_must_contain = submitted_form.cleaned_data['search_must_contain']
             form_data.search_at_least_one = submitted_form.cleaned_data['search_at_least_one']
@@ -43,9 +40,8 @@ def search(request):
             form_data.url_for_api = form_data.build_url_job_search()
 
             if JobAPI.objects.filter(url_for_api=form_data.url_for_api).exists():
-                # Search already exists
-                # Redirect to results, order of terms shouldn't matter
-                pass
+                # Search already exists, update timestamp
+                form_data.url_updated()
             else:
                 form_data.save()
                 return redirect(reverse("indeed_api:index"))
@@ -62,7 +58,7 @@ def results(request):
     api_main()
 
     # get all job listings
-    jobs = JobPost.objects.all()
+    jobs = JobPost.objects.filter(listing_hidden=False)
 
     # if post - filter by categories
 
@@ -71,3 +67,11 @@ def results(request):
     }
 
     return render(request, template_name='indeed_api/results.html', context=context)
+
+
+def hide_listing(request, listing_pk):
+    listing = get_object_or_404(JobPost, pk=listing_pk)
+    listing.listing_hidden = True
+    listing.save()
+
+    return HttpResponseRedirect(reverse('indeed:results'))
