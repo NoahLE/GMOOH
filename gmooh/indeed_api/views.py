@@ -39,9 +39,11 @@ def search(request):
 
             form_data.url_for_api = form_data.build_url_job_search()
 
+            # If existing form, update
             if JobAPI.objects.filter(url_for_api=form_data.url_for_api).exists():
                 # Search already exists, update timestamp
                 form_data.url_updated()
+            # If new search, create
             else:
                 form_data.save()
                 return redirect(reverse("indeed_api:index"))
@@ -54,9 +56,6 @@ def search(request):
 
 
 def results(request):
-    # get newest listings, fresh off the press
-    api_main()
-
     # get all job listings
     jobs = JobPost.objects.filter(listing_hidden=False)
 
@@ -73,5 +72,12 @@ def hide_listing(request, listing_pk):
     listing = get_object_or_404(JobPost, pk=listing_pk)
     listing.listing_hidden = True
     listing.save()
+
+    return HttpResponseRedirect(reverse('indeed:results'))
+
+
+def update_listings(request, listing_pk):
+    # get newest listings, fresh off the press
+    api_main()
 
     return HttpResponseRedirect(reverse('indeed:results'))

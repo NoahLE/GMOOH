@@ -6,8 +6,8 @@ from math import ceil
 from indeed_api.models import JobAPI, JobPost
 
 
-# Helper function for - api_runner => run_api()
-# Takes the results from the Indeed API and saves each listing to the database
+# Helper function for - run_api()
+# Takes the job posting results from the Indeed API and saves each listing to the database
 def save_posts_to_database(data, search_id):
     for result in data:
         from_search = JobAPI.objects.get(pk=search_id)
@@ -36,8 +36,8 @@ def save_posts_to_database(data, search_id):
             )
 
 
-# Helper function for - api_runner => run_api()
-# Builds URLs based on the number of results from the API call
+# Helper function for - run_api()
+# Builds batch URLs based on the number of results from the initial API call
 def build_batch_urls(url_object, total_results):
     number_of_batches = int(ceil(total_results / 25))
 

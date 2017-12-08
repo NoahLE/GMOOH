@@ -22,8 +22,9 @@
       <th>Can't contain</th>
       <th>City</th>
       <th>State</th>
-      <th>Refresh results</th>
-      <th>Age</th>
+      <th>View Results</th>
+      <th>Search Age</th>
+      <th>Refresh Results</th>
     </tr>
     {% for search in searches %}
       <tr>
@@ -34,6 +35,7 @@
         <td>{{ search.state|upper }}</td>
         <td><a href="{% url 'indeed_api:results' %}">Results</a></td>
         <td>{{ search.url_updated|timesince }}</td>
+        <td>{% url '' %}</td>
       </tr>
     {% endfor %}
   </table>
